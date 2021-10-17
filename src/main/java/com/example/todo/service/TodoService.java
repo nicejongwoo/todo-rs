@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Optional;
 
 @Slf4j
 @Service
@@ -29,6 +30,19 @@ public class TodoService {
 
     public List<Todo> retrieve(final String userId) {
         return todoRepository.findByUserId(userId);
+    }
+
+    public List<Todo> update(final Todo todo) {
+        validate(todo);
+
+        Optional<Todo> byId = todoRepository.findById(todo.getId());
+        byId.ifPresent(o -> {
+            o.setTitle(todo.getTitle());
+            o.setDone(todo.isDone());
+            todoRepository.save(o);
+        });
+
+        return retrieve(todo.getUserId());
     }
 
     private void validate(Todo todo) {
