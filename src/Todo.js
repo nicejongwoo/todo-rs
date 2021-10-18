@@ -9,7 +9,7 @@ class Todo extends React.Component {
     render(){
         return (
             <div className="Todo">
-                <input type="checkbox" id={this.state.item.id} name={this.state.item.id} value={this.state.item.done} />
+                <input type="checkbox" id={this.state.item.id} name={this.state.item.id} value={this.state.item.done} checked={this.state.item.done}/>
                 <label id={this.state.item.id}>{this.state.item.title}</label>
             </div>
         )
