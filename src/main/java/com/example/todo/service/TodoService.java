@@ -53,7 +53,7 @@ public class TodoService {
             log.error("error deleting entity ", todo.getId(), e);
             throw new RuntimeException("error deleting entity " + todo.getId());
         }
-        return retrieve(todo.getId());
+        return retrieve(todo.getUserId());
     }
 
     private void validate(Todo todo) {
