@@ -10,7 +10,9 @@ class App extends React.Component {
     constructor(props){
         super(props);
         this.state = {
-            items: []
+            items: [
+                // {"id": "0", "title": "test", "done": false}
+            ]
         }
     }
 
@@ -52,6 +54,29 @@ class App extends React.Component {
             </div>
         );
         
+    }
+
+    componentDidMount() {
+        const requestOptions = {
+            method: "GET",
+            headers: {"Content-Type": "application/json"},
+        };
+
+        fetch("http://localhost:8080/todos", requestOptions)
+        .then((response) => response.json())
+        .then(
+            (response) => {
+                console.log(response.data)
+                this.setState({
+                    items: response.data
+                });
+            },
+            (error) => {
+                this.setState({
+                    error
+                });
+            }
+        );
     }
 }
 
