@@ -17,10 +17,15 @@ class App extends React.Component {
         }
     }
 
+    successMsg = () => {
+        alert("성공");
+    }
+
     add = (item) => {
         call("/todos", "POST", item).then((response) => {
             this.setState({ items: response.data });
         });
+        this.successMsg();
     }
     
     delete = (item) => {
@@ -28,6 +33,14 @@ class App extends React.Component {
             console.log("delete::", response.data)
             this.setState({ items: response.data });
         });
+        this.successMsg();
+    }
+
+    update = (item) => {
+        call("/todos", "PUT", item).then((response) => {
+            this.setState({ items: response.data });
+        });
+        this.successMsg();
     }
 
     render() {
@@ -35,7 +48,12 @@ class App extends React.Component {
             <Paper style={{margin: 16}}>
                 <List>
                     {this.state.items.map((item, idx)=> (
-                        <Todo item={item} key={item.id} delete={this.delete}/>
+                        <Todo 
+                            item={item} 
+                            key={item.id} 
+                            delete={this.delete}
+                            update={this.update}    
+                        />
                     ))}
                 </List>
             </Paper>
