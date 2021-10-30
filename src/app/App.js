@@ -1,5 +1,5 @@
-import Todos from '..todo/Todos';
-import AddTodo from "..todo/AddTodo";
+import Todos from '../todo/Todos';
+import AddTodo from '../todo/AddTodo';
 import './App.css';
 import React from 'react';
 import { call } from "./service/ApiService";
