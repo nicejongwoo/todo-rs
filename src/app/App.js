@@ -1,5 +1,5 @@
-import Todo from './Todo';
-import AddTodo from "./AddTodo";
+import Todos from '..todo/Todos';
+import AddTodo from "..todo/AddTodo";
 import './App.css';
 import React from 'react';
 import { call } from "./service/ApiService";
@@ -48,7 +48,7 @@ class App extends React.Component {
             <Paper style={{margin: 16}}>
                 <List>
                     {this.state.items.map((item, idx)=> (
-                        <Todo 
+                        <Todos
                             item={item} 
                             key={item.id} 
                             delete={this.delete}
