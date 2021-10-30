@@ -30,6 +30,12 @@ public class TokenProvider {
     }
 
     public String validateAndGetUserId(String token) {
+        /**
+         * parseClaimsJws(): token을 BAse64로 디코딩 및 파싱
+         * setSigningKey(): 헤더와 페이로드를 넘어온 시크릿을 이용해 서명한 후 token의 서명과 비교
+         * 위조되지 않았다면 페이로드(Claims) 리턴, 위조라면 예외
+         * getSubject() -> (payload.sub)를 의미: 그중 우리는 userId가 필요하므로 getBody 호출
+         */
         Claims claims = Jwts.parser()
                 .setSigningKey(SECRET_KEY)
                 .parseClaimsJws(token)
