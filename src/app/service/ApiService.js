@@ -23,3 +23,12 @@ export function call(api, method, request) {
         })
     ); 
 }
+
+export function signin(userDTO) {
+    return call("/auth/signin", "POST", userDTO) 
+        .then((response) => {
+            if(response.token) {
+                window.location.href = "/";
+            }
+        });
+}
