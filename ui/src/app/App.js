@@ -73,7 +73,7 @@ class App extends React.Component {
     componentDidMount() {
         call("/todos", "GET", null).then((response) => {
             this.setState({ items: response.data });
-        });
+        });              
     }
 }
 
