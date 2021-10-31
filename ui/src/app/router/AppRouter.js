@@ -27,19 +27,19 @@ class AppRouter extends React.Component {
                             <Route 
                                 path="/login" 
                                 render={props => ( 
-                                    localStorage.getItem("ACCESS_TOKEN") ? <Redirect to="/" /> : <Login />
+                                    (localStorage.getItem("ACCESS_TOKEN") !== null) ? <Redirect to="/" /> : <Login />
                                 )}
                             />                            
                             <Route 
                                 path="/signup"
                                 render={props => ( 
-                                    localStorage.getItem("ACCESS_TOKEN") ? <Redirect to="/" /> : <SignUp />
+                                    (localStorage.getItem("ACCESS_TOKEN") !== null) ? <Redirect to="/" /> : <SignUp />
                                 )}
                             />
                             <Route 
                                 path="/"
                                 render={props => ( 
-                                    localStorage.getItem("ACCESS_TOKEN") ? <App /> : <Redirect to="/login" />
+                                    (localStorage.getItem("ACCESS_TOKEN") !== null) ? <App /> : <Redirect to="/login" />
                                 )}   
                             />
                         </Switch>
