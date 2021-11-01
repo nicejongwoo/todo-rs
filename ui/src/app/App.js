@@ -4,6 +4,7 @@ import './App.css';
 import React from 'react';
 import { call, signout } from "./service/ApiService";
 import { Paper, List, Container, AppBar, Toolbar, Grid, Typography, Button } from "@material-ui/core";
+import CustomSnackBar from './CustomSnackBar';
 
 
 class App extends React.Component {
@@ -13,37 +14,52 @@ class App extends React.Component {
         this.state = {
             items: [
                 // {"id": "0", "title": "test", "done": false}
-            ]
+            ],
+            open: false,
+            message: ""
         }
-    }
-
-    successMsg = () => {
-        alert("성공");
     }
 
     add = (item) => {
         call("/todos", "POST", item).then((response) => {
-            this.setState({ items: response.data });
-        });
-        this.successMsg();
+            this.setState({ 
+                items: response.data
+            });
+            this.updateProps("등록하였습니다.");
+        });        
     }
     
     delete = (item) => {
         call("/todos", "DELETE", item).then((response) => {
             console.log("delete::", response.data)
-            this.setState({ items: response.data });
-        });
-        this.successMsg();
+            this.setState({ 
+                items: response.data
+             });
+             this.updateProps("삭제하였습니다.");
+        });        
     }
 
     update = (item) => {
         call("/todos", "PUT", item).then((response) => {
-            this.setState({ items: response.data });
+            this.setState({ 
+                items: response.data
+             });
         });
-        this.successMsg();
+        this.updateProps("수정하였습니다.");
     }
 
+    updateProps = (message) => {
+        this.setState({
+            open: true,
+            message: message
+        })
+    }
+    
+    handleClose = () => this.setState({ open: false });
+
     render() {
+        const { open, message } = this.state;
+
         var todoItems = this.state.items.length > 0 && (
             <Paper style={{margin: 16}}>
                 <List>
@@ -80,7 +96,8 @@ class App extends React.Component {
                 <Container maxWidth="md">
                     <AddTodo add={this.add} />
                     <div className="TodoList">{todoItems}</div>
-                </Container>
+                </Container>      
+                <CustomSnackBar open={this.state.open} message={this.state.message} handleClose={this.handleClose}/>
             </div>
         );
         
@@ -89,7 +106,7 @@ class App extends React.Component {
     componentDidMount() {
         call("/todos", "GET", null).then((response) => {
             this.setState({ items: response.data });
-        });              
+        });
     }
 }
 
