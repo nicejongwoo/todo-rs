@@ -4,8 +4,10 @@ import com.example.todo.security.filter.JwtAuthenticationFilter;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.catalina.filters.CorsFilter;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.autoconfigure.security.servlet.PathRequest;
 import org.springframework.context.annotation.Bean;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
+import org.springframework.security.config.annotation.web.builders.WebSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.config.http.SessionCreationPolicy;
@@ -33,7 +35,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .sessionCreationPolicy(SessionCreationPolicy.STATELESS)
                 .and()
                 .authorizeRequests()
-                .antMatchers("/", "/auth/**", "/h2-console/**").permitAll()
+                .antMatchers("/**", "/auth/**", "/h2-console/**").permitAll()
                 .anyRequest()
                 .authenticated();
 
@@ -43,6 +45,13 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 //        http.addFilterAfter(jwtAuthenticationFilter, CorsFilter.class); //NullPointerException 발생
         http.addFilterBefore(jwtAuthenticationFilter, UsernamePasswordAuthenticationFilter.class);
 
+    }
+
+    @Override
+    public void configure(WebSecurity web) throws Exception {
+        web.ignoring()
+                .mvcMatchers("/static/**", "/template/**", "/public/**")
+                .requestMatchers(PathRequest.toStaticResources().atCommonLocations());
     }
 
     @Bean
