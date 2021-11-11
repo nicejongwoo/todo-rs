@@ -124,20 +124,20 @@
 							</arguments>
 						</configuration>
 					</execution>
-					<execution>
-						<id>front-end e2e test</id>
-						<goals>
-							<goal>exec</goal>
-						</goals>
-						<phase>integration-test</phase>
-						<configuration>
-							<executable>npm</executable>
-							<arguments>
-								<argument>run</argument>
-								<argument>eject</argument>
-							</arguments>
-						</configuration>
-					</execution>
+<!--					<execution>-->
+<!--						<id>front-end e2e test</id>-->
+<!--						<goals>-->
+<!--							<goal>exec</goal>-->
+<!--						</goals>-->
+<!--						<phase>integration-test</phase>-->
+<!--						<configuration>-->
+<!--							<executable>npm</executable>-->
+<!--							<arguments>-->
+<!--								<argument>run</argument>-->
+<!--								<argument>eject</argument>-->
+<!--							</arguments>-->
+<!--						</configuration>-->
+<!--					</execution>-->
 				</executions>
 				<configuration>
 					<workingDirectory>${basedir}/ui</workingDirectory>
@@ -150,42 +150,6 @@
 				<version>3.1.0</version>
 				<executions>
 					<execution>
-						<id>copy front-end template</id>
-						<goals>
-							<goal>copy-resources</goal>
-						</goals>
-						<phase>prepare-package</phase>
-						<configuration>
-							<outputDirectory>${basedir}/src/main/resources/templates</outputDirectory>
-							<resources>
-								<resource>
-									<directory>ui/build</directory>
-									<includes>
-										<include>index.html</include>
-									</includes>
-								</resource>
-							</resources>
-						</configuration>
-					</execution>
-					<execution>
-						<id>copy front-end static assets</id>
-						<goals>
-							<goal>copy-resources</goal>
-						</goals>
-						<phase>prepare-package</phase>
-						<configuration>
-							<outputDirectory>${basedir}/src/main/resources/static</outputDirectory>
-							<resources>
-								<resource>
-									<directory>ui/build</directory>
-									<excludes>
-										<exclude>index.html</exclude>
-									</excludes>
-								</resource>
-							</resources>
-						</configuration>
-					</execution>
-					<execution>
 						<id>copy front-end template to target</id>
 						<goals>
 							<goal>copy-resources</goal>
@@ -195,7 +159,10 @@
 							<outputDirectory>${basedir}/target/classes/templates</outputDirectory>
 							<resources>
 								<resource>
-									<directory>${basedir}/src/main/resources/templates</directory>
+									<directory>ui/build</directory>
+									<includes>
+										<include>index.html</include>
+									</includes>
 								</resource>
 							</resources>
 						</configuration>
@@ -210,10 +177,10 @@
 							<outputDirectory>${basedir}/target/classes/static</outputDirectory>
 							<resources>
 								<resource>
-									<directory>${basedir}/src/main/resources/static</directory>
-									<excludes>
-										<exclude>index.html</exclude>
-									</excludes>
+									<directory>ui/build</directory>
+<!--									<excludes>-->
+<!--										<exclude>index.html</exclude>-->
+<!--									</excludes>-->
 								</resource>
 							</resources>
 						</configuration>
@@ -221,24 +188,24 @@
 				</executions>
 			</plugin>
 
-			<plugin>
-				<groupId>org.apache.maven.plugins</groupId>
-				<artifactId>maven-clean-plugin</artifactId>
-				<version>3.1.0</version>
-				<configuration>
-					<filesets>
-						<fileset>
-							<directory>${basedir}/src/main/resources/static</directory>
-						</fileset>
-						<fileset>
-							<directory>${basedir}/src/main/resources/templates</directory>
-							<includes>
-								<include>index.html</include>
-							</includes>
-						</fileset>
-					</filesets>
-				</configuration>
-			</plugin>
+<!--			<plugin>-->
+<!--				<groupId>org.apache.maven.plugins</groupId>-->
+<!--				<artifactId>maven-clean-plugin</artifactId>-->
+<!--				<version>3.1.0</version>-->
+<!--				<configuration>-->
+<!--					<filesets>-->
+<!--						<fileset>-->
+<!--							<directory>${basedir}/src/main/resources/static</directory>-->
+<!--						</fileset>-->
+<!--						<fileset>-->
+<!--							<directory>${basedir}/src/main/resources/templates</directory>-->
+<!--							<includes>-->
+<!--								<include>index.html</include>-->
+<!--							</includes>-->
+<!--						</fileset>-->
+<!--					</filesets>-->
+<!--				</configuration>-->
+<!--			</plugin>-->
 
 			<plugin>
 				<groupId>org.springframework.boot</groupId>

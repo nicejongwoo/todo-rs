@@ -24,19 +24,22 @@ class AppRouter extends React.Component {
                 <Router>
                     <div>
                         <Switch>
-                            <Route 
+                            <Route
+                                exact
                                 path="/login" 
                                 render={props => ( 
                                     (localStorage.getItem("ACCESS_TOKEN") !== null) ? <Redirect to="/" /> : <Login />
                                 )}
                             />                            
-                            <Route 
+                            <Route
+                                exact
                                 path="/signup"
                                 render={props => ( 
                                     (localStorage.getItem("ACCESS_TOKEN") !== null) ? <Redirect to="/" /> : <SignUp />
                                 )}
                             />
-                            <Route 
+                            <Route
+                                exact
                                 path="/"
                                 render={props => ( 
                                     (localStorage.getItem("ACCESS_TOKEN") !== null) ? <App /> : <Redirect to="/login" />
