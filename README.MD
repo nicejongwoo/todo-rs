@@ -80,3 +80,38 @@ mvn clean package
 cd todo-rs/target
 java -jar todo-rs-0.0.1-SNAPSHOT.jar
 ```
+
+#### war 파일로 빌드 시
+
+1. SpringBootServletInitializer 상속
+2. configure() 를 overriding
+3. pom.xml 수정
+   1. Embed servlet을 provider로 수정
+   2. packaging: jar -> war 수정
+  
+###### TodoRsApplication
+```
+@SpringBootApplication
+public class TodoRsApplication extends SpringBootServletInitializer {
+
+	public static void main(String[] args) {
+		SpringApplication.run(TodoRsApplication.class, args);
+	}
+
+	@Override
+	protected SpringApplicationBuilder configure(SpringApplicationBuilder builder) {
+		return builder.sources(TodoRsApplication.class);
+	}
+}
+```
+
+###### pom.xml
+```
+<packaging>war</packaging>
+
+<dependency>
+    <groupId>org.springframework.boot</groupId>
+    <artifactId>spring-boot-starter-tomcat</artifactId>
+    <scope>provided</scope>
+</dependency>
+```
