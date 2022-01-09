@@ -86,7 +86,7 @@ java -jar todo-rs-0.0.1-SNAPSHOT.jar
 1. SpringBootServletInitializer 상속
 2. configure() 를 overriding
 3. pom.xml 수정
-   1. Embed servlet을 provider로 수정
+   1. Embed tomcat 을 provided 로 수정(개발시에는 해당부분 주석처리 후 실행)
    2. packaging: jar -> war 수정
   
 ###### TodoRsApplication
